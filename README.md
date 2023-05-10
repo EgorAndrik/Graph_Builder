@@ -1,4 +1,4 @@
-# Graph_Builder_V1.0
+# Graph_Builder
 
 ![Graph](https://dev-gang.ru/static/storage/87085796751707771304914898738708933719.png)
 
