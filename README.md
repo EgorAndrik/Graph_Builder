@@ -4,4 +4,4 @@
 
 **This is an application for plotting mathematical graphs of functions.**
 ## **Peculiarity**
-* In this version, building occurs through the Python model, but for it to work correctly, there must be a connection to the venv virtual environment.
+* In this version, plotting occurs by connecting the application to the local server, which in turn processes the request and plots the mathematical function.
