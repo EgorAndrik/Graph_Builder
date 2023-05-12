@@ -114,8 +114,8 @@ public class Panel extends JPanel {
             imgGraph = new JLabel(new ImageIcon(
                     myPicture.getScaledInstance(320, 240, BufferedImage.SCALE_SMOOTH))
             );
-            imgGraph.setBounds(200, 100, 320, 240);
-            imgGraph.setVisible(true);
+            imgGraph.setBounds(200, 250, 320, 240);
+            imgGraph.setVisible(false);
             add(imgGraph);
             System.out.println(fileAway);
         } catch (IOException e) {
@@ -214,6 +214,7 @@ public class Panel extends JPanel {
             }
             countFielInDir = count;
             creatGraph(countFielInDir);
+            imgGraph.setVisible(true);
         } else {
             if (!meseg_error_emptyTextField(testFromDisplay)) {
                 meseg_error_emptyTextField.setVisible(true);
