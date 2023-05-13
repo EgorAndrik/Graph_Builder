@@ -20,21 +20,20 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
         print("Connected To ", addr)
         client.setblocking(1)
         data = client.recv(2048)
-        if data.decode('utf-8') == 'stop server adminServer'\
-                or jpysocket.jpydecode(data) == 'stop server adminServer':
+        if jpysocket.jpydecode(data) == 'stop server adminServer':
             print("Vladyko destroyed the server")
             break
-        if 'x' in data.decode('utf-8') or 'x' in jpysocket.jpydecode(data):
+        if 'x' in jpysocket.jpydecode(data):
             builder.buildG(jpysocket.jpydecode(data))
             tmpCnt = cntElemDir
             while tmpCnt == cntElemDir:
                 tmpCnt = dirGraphs.search_and_save_graph()
             cntElemDir = tmpCnt
+
             fileGraph = open(f'graphDir\Graph{cntElemDir}.png', 'rb')
-            imgGraph = fileGraph.read(2048)
-            while imgGraph:
-                sock.send(imgGraph)
-                imgGraph = fileGraph.read(2048)
+            client.sendfile(fileGraph)
+            fileGraph.close()
+
 
     client.close()
     print('----------------------------------------')
