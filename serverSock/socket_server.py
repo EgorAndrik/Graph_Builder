@@ -31,9 +31,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             cntElemDir = tmpCnt
 
             fileGraph = open(f'graphDir\Graph{cntElemDir}.png', 'rb')
-            client.sendfile(fileGraph)
-            fileGraph.close()
-
+            bt = fileGraph.read()
+            client.sendall(bt)
 
     client.close()
     print('----------------------------------------')
