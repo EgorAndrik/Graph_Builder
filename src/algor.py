@@ -20,6 +20,11 @@ def check(arifmEx):
 
 function = sys.argv
 function[1] = handler(function[1])
+fig, ax = plt.subplots()
+ax.set_title('Graph function')
+ax.set_xlabel('x')
+ax.set_ylabel('y')
+plt.grid(True)
 if not check(function[1]):
     n = []
 
@@ -50,12 +55,6 @@ if not check(function[1]):
                   for i in n])):
         n = [0]
 
-    fig, ax = plt.subplots()
-    ax.set_title('Graph function')
-    ax.set_xlabel('x')
-    ax.set_ylabel('y')
-    plt.grid(True)
-
     X_min = float(min(n) - 4.0)
     X_max = float(max(n) + 4.0)
 
@@ -69,12 +68,6 @@ else:
     if 'cos' in function[1] or 'sin' in function[1]:
         function[1] = '1*' + function[1]
 
-        fig, ax = plt.subplots()
-        ax.set_title('График функции')
-        ax.set_xlabel('x')
-        ax.set_ylabel('y')
-        plt.grid(True)
-
         x = np.linspace(0, 4 * np.pi, 100)
         y = eval(function[1][:function[1].find('sin') - 1]) * \
             np.sin(eval(function[1][function[1].find('sin') + 4:function[1].find(')')])) if 'sin' in function[1] \
@@ -85,12 +78,6 @@ else:
         plt.show()
     else:
         functioSqrt = function[1][function[1].index('sqrt') + 5:function[1].find(')')]
-
-        fig, ax = plt.subplots()
-        ax.set_title('График функции')
-        ax.set_xlabel('x')
-        ax.set_ylabel('y')
-        plt.grid(True)
 
         x = np.linspace(0, 9, 100)
         y = eval(functioSqrt) ** 0.5
