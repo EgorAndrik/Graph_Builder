@@ -97,24 +97,16 @@ public class Panel extends JPanel {
             }
         };
         Enter_BuildGraph.addActionListener(buildGraph);
-
-        try {
-            File[] file =  new File("serverSock/graphDir").listFiles();
-            countFielInDir = file.length;
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
     }
 
-    private void creatGraph(int ind) {
+    private void creatGraph() {
         try {
-            String fileAway = "serverSock/graphDir/Graph" + ind + ".png";
+            String fileAway = "src/graph.png";
             BufferedImage myPicture = ImageIO.read(new File(fileAway));
             imgGraph = new JLabel(new ImageIcon(
-                    myPicture.getScaledInstance(320, 240, BufferedImage.SCALE_SMOOTH))
+                    myPicture.getScaledInstance(460, 360, BufferedImage.SCALE_SMOOTH))
             );
-            imgGraph.setBounds(200, 250, 320, 240);
+            imgGraph.setBounds(500, 150, 460, 360);
             imgGraph.setVisible(false);
             add(imgGraph);
             System.out.println(fileAway);
@@ -198,22 +190,7 @@ public class Panel extends JPanel {
             meseg_error_emptyTextField.setVisible(false);
             meseg_error_invalidSyntaksis.setVisible(false);
             WishesClient.ConectWithServer(testFromDisplay);
-            int count = 0;
-            while (count <= countFielInDir) {
-                try {
-                    File[] file =  new File("serverSock/graphDir").listFiles();
-                    if (file != null)
-                        count = file.length;
-                    else
-                        count = 0;
-                    System.out.println("Total no. of files : " + count);
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-            countFielInDir = count;
-            creatGraph(countFielInDir);
+            creatGraph();
             imgGraph.setVisible(true);
         } else {
             if (!meseg_error_emptyTextField(testFromDisplay)) {
