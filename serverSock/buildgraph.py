@@ -23,6 +23,11 @@ class GraphBuil:
     def buildG(self, arithmetic_example):
         function = arithmetic_example
         function = self._handler(function)
+        fig, ax = plt.subplots()
+        ax.set_title('Graph function')
+        ax.set_xlabel('x')
+        ax.set_ylabel('y')
+        plt.grid(True)
         if not self._check(function):
             n = []
 
@@ -50,12 +55,6 @@ class GraphBuil:
                         for i in n])):
                 n = [0]
 
-            fig, ax = plt.subplots()
-            ax.set_title('Graph function')
-            ax.set_xlabel('x')
-            ax.set_ylabel('y')
-            plt.grid(True)
-
             X_min = float(min(n) - 4.0)
             X_max = float(max(n) + 4.0)
 
@@ -63,18 +62,11 @@ class GraphBuil:
             y = eval(function)
             ax.plot(x, y)
 
-            indElem = self.dataElemInDir.search_and_save_graph() + 1
-            fig.savefig(f'graphDir\Graph{indElem}.png')
+            fig.savefig(f'graphDir/Graph.png')
 
         else:
             if 'cos' in function or 'sin' in function:
                 function = '1*' + function
-
-                fig, ax = plt.subplots()
-                ax.set_title('График функции')
-                ax.set_xlabel('x')
-                ax.set_ylabel('y')
-                plt.grid(True)
 
                 x = np.linspace(0, 4 * np.pi, 100)
                 y = eval(function[:function.find('sin') - 1]) * \
@@ -83,20 +75,12 @@ class GraphBuil:
                          np.cos(eval(function[function.find('cos') + 4:function.find(')')]))
                 ax.plot(x, y)
 
-                indElem = self.dataElemInDir.search_and_save_graph() + 1
-                fig.savefig(f'graphDir\Graph{indElem}.png')
+                fig.savefig(f'graphDir/Graph.png')
             else:
                 functioSqrt = function[function.index('sqrt') + 5:function.find(')')]
-
-                fig, ax = plt.subplots()
-                ax.set_title('График функции')
-                ax.set_xlabel('x')
-                ax.set_ylabel('y')
-                plt.grid(True)
 
                 x = np.linspace(0, 9, 100)
                 y = eval(functioSqrt) ** 0.5
                 ax.plot(x, y)
 
-                indElem = self.dataElemInDir.search_and_save_graph() + 1
-                fig.savefig(f'graphDir\Graph{indElem}.png')
+                fig.savefig(f'graphDir/Graph.png')

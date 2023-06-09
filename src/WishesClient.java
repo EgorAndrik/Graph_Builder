@@ -1,3 +1,7 @@
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.net.Socket;
 import java.io.*;
 
@@ -20,44 +24,30 @@ public class WishesClient {
 
     public static void main(String[] args) {
         try {
-            Socket soc = new Socket("localhost", 3030);
+            Socket socket = new Socket("localhost", 3030);
 
-            DataOutputStream dout = new DataOutputStream(soc.getOutputStream());
+            DataOutputStream dout = new DataOutputStream(socket.getOutputStream());
             dout.writeUTF("x**2 - 10");
             dout.flush();
             dout.close();
-            int countFielInDir = 0;
-            try {
-                File[] file =  new File("serverSock/graphDir").listFiles();
-                countFielInDir = file.length;
+
+            InputStream ostream = socket.getInputStream();
+            DataInputStream dos = new DataInputStream(ostream);
+            BufferedImage bufferedImage = ImageIO.read(dos);
+
+            try
+            {
+                File graph = new File("graph.png");
+                ImageIO.write(bufferedImage, "png", graph);
+                dos.close();
+                ostream.close();
             }
-            catch (Exception e){
-                e.printStackTrace();
+            catch(IOException ex){
+
+                System.out.println(ex.getMessage());
             }
 
-            int count = 0;
-            while (count <= countFielInDir) {
-                try {
-                    File[] file =  new File("serverSock/graphDir").listFiles();
-                    if (file != null)
-                        count = file.length;
-                    else
-                        count = 0;
-                    System.out.println("Total no. of files : " + count);
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
-            }
-            int i;
-            FileInputStream fis = new FileInputStream ("src/graph.png");
-            DataOutputStream os = new DataOutputStream(soc.getOutputStream());
-            while ((i = fis.read()) > -1)
-                os.write(i);
-            os.flush();
-            os.close();
-
-            soc.close();
+            socket.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

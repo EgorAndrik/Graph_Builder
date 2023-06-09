@@ -1,4 +1,5 @@
 import socket
+import os
 import jpysocket
 from buildgraph import GraphBuil
 from eventDir import Search_and_save_graph_in_Dir
@@ -11,7 +12,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
     sock.setblocking(1)
     builder = GraphBuil()
     dirGraphs = Search_and_save_graph_in_Dir('graphDir')
-    cntElemDir = dirGraphs.search_and_save_graph()
+    dirGraphs.removeFolder()
+    cntElemDir = len(os.listdir('graphDir'))
     print('SERVER TURN ON')
     print('----------------------------------------')
     while True:
@@ -25,12 +27,10 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as sock:
             break
         if 'x' in jpysocket.jpydecode(data):
             builder.buildG(jpysocket.jpydecode(data))
-            tmpCnt = cntElemDir
-            while tmpCnt == cntElemDir:
-                tmpCnt = dirGraphs.search_and_save_graph()
-            cntElemDir = tmpCnt
+            while cntElemDir == 0:
+                cntElemDir = len(os.listdir('graphDir'))
 
-            fileGraph = open(f'graphDir\Graph{cntElemDir}.png', 'rb')
+            fileGraph = open(f'graphDir\Graph.png', 'rb')
             bt = fileGraph.read()
             client.sendall(bt)
 
