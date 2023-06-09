@@ -55,8 +55,6 @@ public class Panel extends JPanel {
     private final Color color_2 = new Color(70, 153, 255, 255);
     private final Color color_3 = new Color(255, 0, 0);
 
-    private int countFielInDir = 0;
-
     public Panel() {
         setLayout(null);
         setBackground(color_2);
@@ -226,9 +224,8 @@ public class Panel extends JPanel {
         for (String errorSnak : alphaSnak)
             if (arithmetic_example.contains(errorSnak))
                 return false;
-        if (count("*", arithmetic_example) > 2)
-            return false;
-        else return count("/", arithmetic_example) <= 2;
+        if (count("*", arithmetic_example) > 2) return false;
+        return count("/", arithmetic_example) <= 2;
     }
 
     private int count(String symbol, String text) {
@@ -263,8 +260,7 @@ public class Panel extends JPanel {
                         arithmetic_example.contains("sin") ||
                         arithmetic_example.contains("sqrt"))
                     continue;
-                else
-                    return false;
+                else return false;
             }
         return true;
     }
